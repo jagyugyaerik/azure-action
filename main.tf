@@ -2,7 +2,11 @@ provider "azurerm" {
   features {}
 }
 
+terraform {
+    backend "azurerm" {}
+}
+
 resource "azurerm_resource_group" "this" {
-  name     = "rg-action-tfstate"
+  name     = "rg-action-placeholder"
   location = "westeurope"
 }

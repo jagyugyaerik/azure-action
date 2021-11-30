@@ -40,7 +40,7 @@ jobs:
             -backend-config="resource_group_name=rg-rg-vo-tfstate-backend-weu-prod-001" \
             -backend-config="storage_account_name=ststvotfstateweuprod001" \
             -backend-config="container_name=tfstate" \
-            -backend-config="key=LandingZone/Test/External/${{ github.event.inputs.environment_name }}.tfstate"
+            -backend-config="key=action.tfstate"
       - name: Terraform Validate
         id: validate
         run: terraform validate

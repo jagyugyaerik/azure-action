@@ -3,6 +3,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "this" {
-  name     = "rg-action-test"
+  name     = "rg-action-tfstate"
   location = "westeurope"
 }

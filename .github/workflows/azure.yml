@@ -1,16 +1,18 @@
-on: [push]
-
-name: AzureLoginSample
-
+name:  Provision Application Landing Zone
+# Controls when the action will run. Triggers the workflow on push or pull request
+on:
+  workflow_dispatch:
+    inputs:
+      environment_name:
+        description: 'Name of project space tfvars file'
+        required: true
+        default: 'example_app'
 jobs:
-
-  build-and-deploy:
+  # This workflow contains the following jobs
+  terraform-apply:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
-    
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-    - run: |
-        az account show
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      - run: echo ${{ github.event.inputs.environment_name }}

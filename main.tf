@@ -1,8 +1,8 @@
 provider "azurerm" {
-    features {}
+  features {}
 }
 
 resource "azurerm_resourge_group" {
-    name = "rg-action-test"
-    location = "westeurope"
+  name     = "rg-action-test"
+  location = "westeurope"
 }

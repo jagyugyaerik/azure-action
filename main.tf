@@ -7,6 +7,6 @@ terraform {
 }
 
 resource "azurerm_resource_group" "this" {
-  name     = "rg-action-placeholder"
+  name     = "rg-action-example"
   location = "westeurope"
 }

@@ -44,3 +44,15 @@ jobs:
         id: apply
         run: terraform apply -auto-approve
       - run: ls -la
+  destroy:
+    name: destroy
+    runs-on: ubuntu-latest
+    if: ${{ failure() || cancelled() }}
+    needs: terraform-apply
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform destroy
+        run: terraform destroy -auto-approve -var-file="fixtures.tfvars"

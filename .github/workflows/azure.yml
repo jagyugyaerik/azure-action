@@ -53,8 +53,11 @@ jobs:
           azPSVersion: "latest"
           inlineScript: |
             $resources = @()
+            $rgName = ${{ steps.resource_group.outputs.RESOURCE_GROUP_NAME }}
 
-            $resources += Get-AzResource -ResourceGroupName ${{ steps.resource_group.outputs.RESOURCE_GROUP_NAME }}"
+            Write-Host($rgName)
+
+            $resources += Get-AzResource -ResourceGroupName $rgName
 
             foreach ($resource in $resources) {
                 try {

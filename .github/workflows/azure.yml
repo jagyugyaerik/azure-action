@@ -22,7 +22,6 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
-      - run: echo ${{ github.event.inputs.environment_name }}
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v1
       - name: Terraform fmt
@@ -42,7 +41,10 @@ jobs:
       - name: Retrieve resource group name
         id: resource_group
         # run: echo "::set-output name=RESOURCE_GROUP_NAME::$(terraform output project_space_name)"
-        run: echo "RESOURCE_GROUP_NAME=$(terraform output -raw project_space_name)" >> $GITHUB_ENV
+        run: |
+          terraform output -raw project_space_name
+          echo "RESOURCE_GROUP_NAME=$(terraform output -raw project_space_name)" >> $GITHUB_ENV
+          echo ${{ env.RESOURCE_GROUP_NAME }}
       - name: Login via Az module
         uses: azure/login@v1
         with:

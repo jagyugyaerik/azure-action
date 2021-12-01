@@ -55,7 +55,7 @@ resource "null_resource" "delete_tags" {
   }
 
   provisioner "local-exec" {
-    command     = format("%s/modules/terraform-azure-psp/scripts/removeTag.ps1 -rgName ${self.triggers.resource_group_name} -tagName Module", path.module)
+    command     = format("%s/scripts/removeTag.ps1 -rgName ${self.triggers.resource_group_name} -tagName Module", path.module)
     interpreter = ["/bin/pwsh", "-Command"]
     on_failure  = fail
   }

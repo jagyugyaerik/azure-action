@@ -43,5 +43,5 @@ module "caf" {
 
 
 output "project_space_name" {
-  value = "frix-rg-vnet"
+  value = module.caf.resource_groups.network.name
 }

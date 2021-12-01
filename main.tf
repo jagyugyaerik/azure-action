@@ -19,7 +19,6 @@ module "caf" {
   }
 
   networking = {
-    public_ip_addresses = var.public_ip_addresses
     vnets = {
       vnet1 = {
         resource_group_key = "network"

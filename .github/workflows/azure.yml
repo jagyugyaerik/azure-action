@@ -56,7 +56,7 @@ jobs:
           inlineScript: |
             $resources = @()
 
-            $resources += Get-AzResource -ResourceGroupName frix-rg-vnet
+            $resources += Get-AzResource -ResourceGroupName zhas-rg-vnet
 
             foreach ($resource in $resources) {
                 try {

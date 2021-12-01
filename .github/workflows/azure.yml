@@ -22,10 +22,12 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
-      # - name: Login via Az module
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - run: |
+            Get-AzVM -ResourceGroupName "frix-rg-vnet"
       - run: |
           curl -L https://aka.ms/InstallAzureCli | bash
       - run: echo ${{ github.event.inputs.environment_name }}

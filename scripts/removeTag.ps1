@@ -5,7 +5,7 @@ param (
 
 $resources = @()
 
-$resources += get-azresourcegroup -ResourceGroupName $rgName
+$resources += Get-AzResource -ResourceGroupName $rgName
 
 foreach ($resource in $resources) {
     try {

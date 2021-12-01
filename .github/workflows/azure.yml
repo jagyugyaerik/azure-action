@@ -42,10 +42,10 @@ jobs:
       - name: Retrieve resource group name
         id: resource_group
         run: echo '::set-output name=RESOURCE_GROUP_NAME::$(terraform output project_space_name)'
-      # - name: Login via Az module
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
       - name: Azure CLI script file
         uses: azure/CLI@v1
         with:

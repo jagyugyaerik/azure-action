@@ -20,28 +20,28 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # - name: Checkout Source Code
-      #   uses: actions/checkout@v2
-      # - run: echo ${{ github.event.inputs.environment_name }}
-      # - name: Install Terraform
-      #   uses: hashicorp/setup-terraform@v1
-      # - name: Terraform fmt
-      #   id: fmt
-      #   run: terraform fmt -check
-      # - name: Terraform Init
-      #   id: init
-      #   # Update backend-config to match remote storage location (except tfstate file name, which is dynamically created)
-      #   run: |
-      #     terraform init
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate
-      # - name: Terraform Apply
-      #   id: apply
-      #   run: terraform apply -auto-approve
-      # - name: Retrieve resource group name
-      #   id: resource_group
-      #   run: echo '::set-output name=RESOURCE_GROUP_NAME::$(terraform output project_space_name)'
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      - run: echo ${{ github.event.inputs.environment_name }}
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+      - name: Terraform Init
+        id: init
+        # Update backend-config to match remote storage location (except tfstate file name, which is dynamically created)
+        run: |
+          terraform init
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+      - name: Retrieve resource group name
+        id: resource_group
+        run: echo '::set-output name=RESOURCE_GROUP_NAME::$(terraform output project_space_name)'
       - name: Login via Az module
         uses: azure/login@v1
         with:
@@ -56,7 +56,7 @@ jobs:
           inlineScript: |
             $resources = @()
 
-            $resources += Get-AzResource -ResourceGroupName zhas-rg-vnet
+            $resources += Get-AzResource -ResourceGroupName ${{ steps.resource_group.outputs.RESOURCE_GROUP_NAME }}"
 
             foreach ($resource in $resources) {
                 try {

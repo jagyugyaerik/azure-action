@@ -26,16 +26,16 @@ module "caf" {
           name          = "app-vnet"
           address_space = ["10.1.0.0/16"]
           subnets = {
-          }
-          app = {
-            name = "app-layer"
-            cidr = ["10.1.3.0/24"]
-            nsg  = ""
-          }
-          data = {
-            name = "data-layer"
-            cidr = ["10.1.4.0/24"]
-            nsg  = ""
+            app = {
+              name = "app-layer"
+              cidr = ["10.1.3.0/24"]
+              nsg  = ""
+            }
+            data = {
+              name = "data-layer"
+              cidr = ["10.1.4.0/24"]
+              nsg  = ""
+            }
           }
         }
       }

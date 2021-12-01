@@ -42,25 +42,25 @@ jobs:
       # - name: Retrieve resource group name
       #   id: resource_group
       #   run: echo '::set-output name=RESOURCE_GROUP_NAME::$(terraform output project_space_name)'
-      # - name: Login via Az module
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
       - name: Azure CLI script file
         uses: azure/CLI@v1
         with:
           azcliversion: 2.0.72
           inlineScript: |
             scripts/removeTag.ps1 -rgName "frix-rg-vnet" -tagName "Module"
-  destroy:
-    name: destroy
-    runs-on: ubuntu-latest
-    if: ${{ failure() || cancelled() }}
-    needs: terraform-apply
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v1
-      - name: Terraform destroy
-        run: terraform destroy -auto-approve -var-file="fixtures.tfvars"
+  # destroy:
+  #   name: destroy
+  #   runs-on: ubuntu-latest
+  #   if: ${{ failure() || cancelled() }}
+  #   needs: terraform-apply
+  #   steps:
+  #     - name: Checkout Source Code
+  #       uses: actions/checkout@v2
+  #     - name: Install Terraform
+  #       uses: hashicorp/setup-terraform@v1
+  #     - name: Terraform destroy
+  #       run: terraform destroy -auto-approve -var-file="fixtures.tfvars"

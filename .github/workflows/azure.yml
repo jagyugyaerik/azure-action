@@ -51,7 +51,7 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            scripts/removeTag.ps1 -rgName "frix-rg-vnet" -tagName "Module"
+            .\scripts/removeTag.ps1 -rgName "frix-rg-vnet" -tagName "Module"
   # destroy:
   #   name: destroy
   #   runs-on: ubuntu-latest

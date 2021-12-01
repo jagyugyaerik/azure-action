@@ -41,7 +41,8 @@ jobs:
         run: terraform apply -auto-approve
       - name: Retrieve resource group name
         id: resource_group
-        run: echo "::set-output name=RESOURCE_GROUP_NAME::$(terraform output project_space_name)"
+        # run: echo "::set-output name=RESOURCE_GROUP_NAME::$(terraform output project_space_name)"
+        run: echo "RESOURCE_GROUP_NAME=$(terraform output -raw project_space_name)" >> $GITHUB_ENV
       - name: Login via Az module
         uses: azure/login@v1
         with:
@@ -53,7 +54,7 @@ jobs:
           azPSVersion: "latest"
           inlineScript: |
             $resources = @()
-            $rgName = ${{ steps.resource_group.outputs.RESOURCE_GROUP_NAME }}
+            $rgName = ${{ env.RESOURCE_GROUP_NAME }}
 
             Write-Host($rgName)
 

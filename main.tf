@@ -8,14 +8,12 @@ module "caf" {
       region1 = "southeastasia"
     }
   }
+
   resource_groups = {
     network = {
       name   = "vnet"
       region = "region1"
     }
-  }
-
-  compute = {
   }
 
   networking = {
@@ -25,23 +23,24 @@ module "caf" {
         vnet = {
           name          = "app-vnet"
           address_space = ["10.1.0.0/16"]
-          subnets = {
-            app = {
-              name = "app-layer"
-              cidr = ["10.1.3.0/24"]
-              nsg  = ""
-            }
-            data = {
-              name = "data-layer"
-              cidr = ["10.1.4.0/24"]
-              nsg  = ""
-            }
+        }
+        subnets = {
+          app = {
+            name = "app-layer"
+            cidr = ["10.1.3.0/24"]
+            nsg  = ""
+          }
+          data = {
+            name = "data-layer"
+            cidr = ["10.1.4.0/24"]
+            nsg  = ""
           }
         }
       }
     }
   }
 }
+
 
 resource "null_resource" "delete_tags" {
   depends_on = [module.caf]

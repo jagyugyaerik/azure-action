@@ -47,9 +47,12 @@ jobs:
         with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
           enable-AzPSSession: true
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
       - name: Run Azure PowerShell script
         uses: azure/powershell@v1
         with:
+          azPSVersion: "latest"
           inlineScript: |
             $resources = @()
 

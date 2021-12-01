@@ -22,12 +22,6 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
-      - name: Login via Az module
-        uses: azure/login@v1
-        with:
-          creds: ${{secrets.AZURE_CREDENTIALS}}
-      - run: |
-            Get-AzVM -ResourceGroupName "frix-rg-vnet"
       - run: echo ${{ github.event.inputs.environment_name }}
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v1
@@ -45,7 +39,19 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve
-      - run: ls -la
+      - name: Retrieve resource group name
+        id: resource_group
+        run: echo '::set-output name=RESOURCE_GROUP_NAME::$(terraform output project_space_name)'
+      # - name: Login via Az module
+      #   uses: azure/login@v1
+      #   with:
+      #     creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Azure CLI script file
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            scripts/removeTag.ps1 -rgName ${{ steps.resource_group.outputs.RESOURCE_GROUP_NAME }} -tagName Module"
   destroy:
     name: destroy
     runs-on: ubuntu-latest

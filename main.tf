@@ -42,22 +42,6 @@ module "caf" {
 }
 
 
-resource "null_resource" "delete_tags" {
-  depends_on = [module.caf]
-  #   depends_on = [
-  #     azuread_application.app,
-  #     azuread_service_principal.app,
-  #     azuread_group.group
-  #   ]
-
-  triggers = {
-    resource_group_name = module.caf.resource_groups.network.name
-  }
-
-  provisioner "local-exec" {
-    command     = format("%s/scripts/removeTag.ps1 -rgName ${self.triggers.resource_group_name} -tagName Module", path.module)
-    interpreter = ["/bin/pwsh", "-Command"]
-    on_failure  = fail
-  }
-
+output "project_space_name" {
+  value = "frix-rg-vnet"
 }

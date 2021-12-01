@@ -28,12 +28,12 @@ module "caf" {
           subnets = {
           }
           app = {
-            name    = "app-layer"
-            cidr    = ["10.1.3.0/24"]
+            name = "app-layer"
+            cidr = ["10.1.3.0/24"]
           }
           data = {
-            name    = "data-layer"
-            cidr    = ["10.1.4.0/24"]
+            name = "data-layer"
+            cidr = ["10.1.4.0/24"]
           }
         }
       }

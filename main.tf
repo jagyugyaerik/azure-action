@@ -50,9 +50,9 @@ resource "null_resource" "delete_tags" {
   #     azuread_group.group
   #   ]
 
-  #   triggers = {
-  #     resource_group_name = module.caf.resource_groups.network.name
-  #   }
+    triggers = {
+      resource_group_name = module.caf.resource_groups.network.name
+    }
 
   provisioner "local-exec" {
     command     = format("%s/modules/terraform-azure-psp/scripts/removeTag.ps1 -rgName ${self.triggers.resource_group_name} -tagName Module", path.module)

@@ -30,12 +30,10 @@ module "caf" {
           app = {
             name    = "app-layer"
             cidr    = ["10.1.3.0/24"]
-            nsg_key = "app"
           }
           data = {
             name    = "data-layer"
             cidr    = ["10.1.4.0/24"]
-            nsg_key = "data"
           }
         }
       }

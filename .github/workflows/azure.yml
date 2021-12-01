@@ -36,11 +36,7 @@ jobs:
         id: init
         # Update backend-config to match remote storage location (except tfstate file name, which is dynamically created)
         run: |
-          terraform init \
-            -backend-config="resource_group_name=rg-rg-vo-tfstate-backend-weu-prod-001" \
-            -backend-config="storage_account_name=ststvotfstateweuprod001" \
-            -backend-config="container_name=tfstate" \
-            -backend-config="key=${{ github.event.inputs.environment_name }}.tfstate"
+          terraform init
       - name: Terraform Validate
         id: validate
         run: terraform validate

@@ -34,6 +34,7 @@ jobs:
             echo "ARM_SUBSCRIPTION_ID=$subscription_id" >> $GITHUB_ENV
             echo ${{ env.AZURE_CREDENTIALS }} | jq -r '.subscriptionId="${ARM_SUBSCRIPTION_ID}"' > AZURE_CREDENTIALS.json
             echo "AZURE_CREDENTIALS=$(cat AZURE_CREDENTIALS.json)" >> $GITHUB_ENV
+            echo ${{ env.AZURE_CREDENTIALS }}
           else
             echo "ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
           fi

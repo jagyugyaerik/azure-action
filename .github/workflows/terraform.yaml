@@ -1,5 +1,6 @@
 name:  Provision Application Landing Zone
 on:
+  workflow_dispatch:
 
 jobs:
   # load_changed_files:

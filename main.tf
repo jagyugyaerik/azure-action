@@ -2,7 +2,7 @@ provider "azurerm" {
   features {}
 }
 
-variable "rg_id" { default = "eja-named" }
+variable "rg_id" { default = "eja-name" }
 variable "rg_name" { default = "" }
 variable "lc" { default = "westeurope" }
 

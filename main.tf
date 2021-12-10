@@ -22,5 +22,5 @@ module "vnet" {
 }
 
 output "rg" {
-    value = coalesce(try(module.m1[0].rg, ""), var.rg_id)
+  value = coalesce(try(module.m1[0].rg, ""), var.rg_id)
 }

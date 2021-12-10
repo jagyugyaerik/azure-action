@@ -29,6 +29,8 @@ jobs:
       #     echo ${{ env.ARM_SUBSCRIPTION_ID }}
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check

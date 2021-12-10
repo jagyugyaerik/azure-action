@@ -40,12 +40,11 @@ jobs:
         id: validate
         run: terraform validate
       - name: Terraform Set RG
+        id: rg
         run: |
           terraform apply -target=module.m1 -auto-approve
-          echo "TF_VAR_rg_id=$(terraform output -raw rg | tr -d '[:space:]')" >> $GITHUB_ENV
+          echo '::set-output name=rg::$(terraform output -raw rg)'
       - name: Terraform Apply
-        run: |
-          echo ${{ env.TF_VAR_rg_id }}
-          terraform apply -auto-approve
+        run: TF_VAR_rg_id=${{ steps.rg.outputs.rg }}" terraform apply -auto-approve
       - name: Terraform Force Copy
         run: terraform init -force-copy

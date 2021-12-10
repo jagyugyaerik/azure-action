@@ -18,7 +18,7 @@ module "vnet" {
   source = "./modules/m2"
 
   vnet_name = "eja-vnet2"
-  rg        = var.rg
+  rg        = var.rg_id
   lc        = var.lc
 }
 

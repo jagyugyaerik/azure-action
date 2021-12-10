@@ -14,7 +14,6 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      TFVARS_FILE_PATH: ./project_spaces
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
@@ -41,9 +40,9 @@ jobs:
         run: terraform validate
       - name: Terraform Set RG
         run: |
-          terraform apply -target=module.m1 -auto-approve -var-file="${{ env.TFVARS_FILE_PATH }}/${{ github.event.inputs.environment_name }}.tfvars"
+          terraform apply -target=module.m1 -auto-approve
           echo "TF_VAR_rg_id=$(terraform output -raw rg)" >> $GITHUB_ENV
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var-file="${{ env.TFVARS_FILE_PATH }}/${{ github.event.inputs.environment_name }}.tfvars"
+        run: terraform apply -auto-approve
       - name: Terraform Force Copy
         run: terraform init -force-copy

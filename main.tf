@@ -16,7 +16,7 @@ module "m1" {
 module "vnet" {
   source = "./modules/m2"
 
-  vnet_name = "eja-vnet"
+  vnet_name = "eja-vnet2"
   rg        = var.rg
   lc        = var.lc
 }

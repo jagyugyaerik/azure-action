@@ -11,6 +11,7 @@ module "m1" {
   count  = var.rg_id == "" ? 1 : 0
 
   rg = var.rg_name
+  lc = var.lc
 }
 
 module "vnet" {

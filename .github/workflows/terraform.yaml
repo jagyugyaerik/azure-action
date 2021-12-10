@@ -43,7 +43,7 @@ jobs:
         id: apply
         run: |
           terraform apply -target=module.m1 -auto-approve -var-file="${{ env.TFVARS_FILE_PATH }}/${{ github.event.inputs.environment_name }}.tfvars"
-          echo "TF_VAR_RG=${{ terraform output -raw rg }}" >> $GITHUB_ENV
+          echo "TF_VAR_RG=$(terraform output -raw rg)" >> $GITHUB_ENV
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve -var-file="${{ env.TFVARS_FILE_PATH }}/${{ github.event.inputs.environment_name }}.tfvars"

@@ -2,8 +2,8 @@ provider "azurerm" {
   features {}
 }
 
-variable "rg_id" { default = "" }
-variable "rg_name" { default = "eja-named" }
+variable "rg_id" { default = "eja-named" }
+variable "rg_name" { default = "" }
 variable "lc" { default = "westeurope" }
 
 module "m1" {
@@ -17,7 +17,7 @@ module "m1" {
 module "vnet" {
   source = "./modules/m2"
 
-  vnet_name = "eja-vnet2"
+  vnet_name = "eja-vnet3"
   rg        = var.rg_id
   lc        = var.lc
 }

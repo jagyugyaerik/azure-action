@@ -40,12 +40,10 @@ jobs:
         id: validate
         run: terraform validate
       - name: Terraform Set RG
-        id: apply
         run: |
           terraform apply -target=module.m1 -auto-approve -var-file="${{ env.TFVARS_FILE_PATH }}/${{ github.event.inputs.environment_name }}.tfvars"
           echo "TF_VAR_RG=$(terraform output -raw rg)" >> $GITHUB_ENV
       - name: Terraform Apply
-        id: apply
         run: terraform apply -auto-approve -var-file="${{ env.TFVARS_FILE_PATH }}/${{ github.event.inputs.environment_name }}.tfvars"
       - name: Terraform Force Copy
         run: terraform init -force-copy

@@ -1,47 +1,26 @@
-module "caf" {
-  source  = "aztfmod/caf/azurerm"
-  version = "5.3.11"
-
-  global_settings = {
-    default_region = "region1"
-    regions = {
-      region1 = "southeastasia"
-    }
-  }
-
-  resource_groups = {
-    network = {
-      name   = "vnet"
-      region = "region1"
-    }
-  }
-
-  networking = {
-    vnets = {
-      vnet1 = {
-        resource_group_key = "network"
-        vnet = {
-          name          = "app-vnet"
-          address_space = ["10.1.0.0/16"]
-        }
-        subnets = {
-          app = {
-            name = "app-layer"
-            cidr = ["10.1.3.0/24"]
-            nsg  = ""
-          }
-          data = {
-            name = "data-layer"
-            cidr = ["10.1.4.0/24"]
-            nsg  = ""
-          }
-        }
-      }
-    }
-  }
+provider "azurerm" {
+  features {}
 }
 
+variable "rg_id" { default = "" }
+variable "rg_name" { default = "eja-named" }
+variable "lc" { default = "westeurope" }
 
-output "project_space_name" {
-  value = module.caf.resource_groups.network.name
+module "m1" {
+  source = "./modules/m1"
+  count  = var.rg_id == "" ? 1 : 0
+
+  rg = var.rg_name
+}
+
+module "vnet" {
+  source = "./modules/m2"
+
+  vnet_name = "eja-vnet"
+  rg        = var.rg
+  lc        = var.lc
+}
+
+output "rg" {
+    value = coalesce(try(module.m1[0].rg, ""), var.rg_id)
 }

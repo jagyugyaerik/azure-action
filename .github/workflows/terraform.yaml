@@ -44,6 +44,8 @@ jobs:
           terraform apply -target=module.m1 -auto-approve
           echo "TF_VAR_rg_id=$(terraform output -raw rg | tr -d '[:space:]')" >> $GITHUB_ENV
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: |
+          echo ${{ env.TF_VAR_rg_id }}
+          terraform apply -auto-approve
       - name: Terraform Force Copy
         run: terraform init -force-copy

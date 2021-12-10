@@ -43,7 +43,7 @@ jobs:
         id: rg
         run: |
           terraform apply -target=module.m1 -auto-approve
-          echo '::set-output name=rg::$(terraform output -raw rg)'
+          echo '::set-output name=rg::$(terraform output rg)'
       - name: Terraform Apply
         run: TF_VAR_rg_id=${{ steps.rg.outputs.rg }} terraform apply -auto-approve
       - name: Terraform Force Copy
